@@ -1,0 +1,60 @@
+# Arabella D. Pabular, Data Analyst portfolio.
+#
+# This is a portfolio. Being found, read, indexed and quoted is the entire
+# point, so everything here is open, including the AI crawlers that a lot of
+# sites now block by default. A recruiter's AI screening tool and an AI answer
+# engine are both readers she wants.
+#
+# READ THIS BEFORE TRUSTING THIS FILE:
+# robots.txt is only ever read from the ROOT of a domain. That means this file
+# works on a user site  (https://<name>.github.io/robots.txt)  and is IGNORED
+# on a project site     (https://<name>.github.io/<repo>/robots.txt),
+# because a crawler there reads https://<name>.github.io/robots.txt instead,
+# which belongs to whatever else is on that account.
+# Nothing breaks either way. The rules below are all permissive, so being
+# ignored costs nothing, and the <meta name="robots"> tag in index.html works
+# in both deployment shapes. That tag, not this file, is what actually carries
+# the instruction.
+
+User-agent: *
+Allow: /
+
+# Named one by one on purpose, so that a future copy-pasted "block the AI bots"
+# snippet cannot quietly apply here without someone deleting these lines first.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# No sitemap is shipped, deliberately. A sitemap needs absolute URLs, the site
+# has one page, and a sitemap listing a placeholder address is worse than none.
+# If she ever wants one, the line goes here with the real origin:
+# Sitemap: https://<name>.github.io/sitemap.xml
