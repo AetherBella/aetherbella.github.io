@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Churn Prediction — Case Study · Arabella D. Pabular</title>
+<meta name="description" content="Case study: integrating academic, payment and sentiment data in Microsoft Access, comparing Random Forest, XGBoost and Logistic Regression in Python, and shipping a Power BI risk dashboard. 90.26% accuracy, 86.97% F1.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#050807">
+<link rel="canonical" href="https://aetherbella.github.io/projects/student-churn-prediction.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Student Churn Prediction — Case Study">
+<meta property="og:description" content="90.26% accuracy, 86.97% F1-score, 100% UAT refresh success and 95.2% user satisfaction.">
+<meta property="og:image" content="https://aetherbella.github.io/assets/img/og.png">
+<script>!function(){try{var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("apab-theme");("dark"===t||"light"===t)&&d.setAttribute("data-theme",t);"on"===localStorage.getItem("apab-sources")&&d.classList.add("sources-on")}catch(e){}}()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/img/icon-180.png">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <g id="i-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g>
+  <g id="i-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></g>
+  <g id="i-menu"><path d="M4 6h16M4 12h16M4 18h16"/></g>
+  <g id="i-close"><path d="M18 6 6 18M6 6l12 12"/></g>
+  <g id="i-download"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></g>
+  <g id="i-upright"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></g>
+  <g id="i-up"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></g>
+  <g id="i-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></g>
+  <g id="i-play"><path d="M5 3.5v17l14-8.5z"/></g>
+  <g id="i-image"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></g>
+</defs></svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="page">
+<header class="nav" id="nav">
+  <div class="shell nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2.5" y="8" width="3" height="6" fill="currentColor" opacity="0.5"/><rect x="7" y="4.5" width="3" height="9.5" fill="currentColor"/><rect x="11.5" y="10.5" width="3" height="3.5" fill="currentColor" opacity="0.5"/></svg></span>
+      <span class="brand-name"><b>Arabella Pabular</b><span>Data Analyst</span></span>
+      <span class="vh">, home</span>
+    </a>
+    <nav class="nav-links" id="navlinks" aria-label="Site">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects" aria-current="page">Projects</a>
+      <a href="../index.html#dashboards">Dashboards</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#contact">Contact</a>
+      <span class="nav-ind" id="navind" aria-hidden="true"></span>
+    </nav>
+    <div class="nav-tools">
+      <button class="pill" id="sources" type="button" aria-pressed="false" title="Show where every figure on this page comes from">Sources<span class="n" id="sources-n"></span></button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch to light theme"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-sun" id="theme-icon"/></svg></button>
+      <a class="btn btn-primary btn--sm" href="../assets/docs/Arabella-Pabular-Data-Analyst-Resume.pdf" download><span><span class="cv-long">Download </span>Resume</span><span class="ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-download"/></svg></span></a>
+      <button class="icon-btn nav-toggle" id="navtoggle" type="button" aria-expanded="false" aria-controls="navlinks" aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-menu" id="navtoggle-icon"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<section class="cs-hero">
+    <div class="shell">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../index.html#projects">Projects</a><span aria-hidden="true">/</span><span aria-current="page">Student churn prediction</span></nav>
+      <p class="eyebrow" style="margin-top:1.4rem">Case study 03 · Education · Predictive analytics</p>
+      <h1 class="s-title">Student churn <span class="accent">prediction</span></h1>
+      <p class="lede">The signs that a student was about to drop out were split across academic records, payment history and sentiment data. My capstone brought them together, trained and compared three models to flag at-risk students early, and put the result in a Power BI dashboard that stakeholders filter themselves.</p>
+      <dl class="cs-meta glass">
+        <div><dt>Project type</dt><dd>Data Analytics capstone</dd></div>
+        <div><dt>Period</dt><dd>Jan–Nov 2025</dd></div>
+        <div><dt>Tools</dt><dd>Microsoft Access, Python, Power BI</dd></div>
+        <div><dt>Status</dt><dd>Completed · validated in UAT</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="shell" aria-label="Key figures">
+    <div class="kpis">
+      <div class="kpi glass"><span class="num">90.26<span class="u">%</span></span><span class="lab">model accuracy</span></div>
+      <div class="kpi glass"><span class="num">86.97<span class="u">%</span></span><span class="lab">F1-score</span></div>
+      <div class="kpi glass"><span class="num">100<span class="u">%</span></span><span class="lab">data refresh success in user acceptance testing</span></div>
+      <div class="kpi glass"><span class="num">95.2<span class="u">%</span></span><span class="lab">user satisfaction in user acceptance testing</span></div>
+    </div>
+    <p class="cite"><span><span class="in">Resume · Projects: Student Churn Prediction, "Result".</span></span></p>
+  </section>
+
+  <div class="shell cs-layout">
+    <aside class="cs-toc glass" aria-label="On this page">
+      <p class="micro">On this page</p>
+      <ol>
+        <li><a href="#problem" data-k="01">Business problem</a></li>
+        <li><a href="#objectives" data-k="02">Objectives</a></li>
+        <li><a href="#dataset" data-k="03">Dataset</a></li>
+        <li><a href="#preparation" data-k="04">Data preparation</a></li>
+        <li><a href="#approach" data-k="05">Analytical approach</a></li>
+        <li><a href="#dashboard" data-k="06">Results &amp; dashboard</a></li>
+        <li><a href="#impact" data-k="07">Business impact</a></li>
+        <li><a href="#tools" data-k="08">Tools used</a></li>
+      </ol>
+    </aside>
+
+    <div class="cs-content">
+      <section class="cs-section" id="problem" data-reveal>
+        <h2><span class="k">01</span>Business problem</h2>
+        <p>A school loses students long before the withdrawal form arrives. The early signals (grades, missed payments, how students feel about their experience) lived in academic, payment and sentiment data that sat in separate sources and never spoke to each other. Nobody could see the combined picture early enough to act on it.</p>
+      </section>
+
+      <section class="cs-section" id="objectives" data-reveal>
+        <h2><span class="k">02</span>Objectives</h2>
+        <ul class="cs-list">
+          <li>Can combining academic, payment and sentiment data <b>flag at-risk students early</b>?</li>
+          <li>Which of <b>Random Forest, XGBoost and Logistic Regression</b> predicts churn best on this data?</li>
+          <li>Can stakeholders <b>filter student risk</b> by term, program and risk category themselves, without an analyst?</li>
+        </ul>
+      </section>
+
+      <section class="cs-section" id="dataset" data-reveal>
+        <h2><span class="k">03</span>Dataset</h2>
+        <dl class="facts glass">
+          <div><dt>Sources</dt><dd>Academic records, payment history, sentiment data</dd></div>
+          <div><dt>Integration</dt><dd>Microsoft Access</dd></div>
+          <div><dt>Dimensions used in the dashboard</dt><dd>Term, program, risk category</dd></div>
+          <div><dt>Context</dt><dd>Data Analytics capstone, Jan–Nov 2025</dd></div>
+        </dl>
+      </section>
+
+      <section class="cs-section" id="preparation" data-reveal>
+        <h2><span class="k">04</span>Data preparation</h2>
+        <ol class="flow" style="--n:4">
+          <li class="glass"><b>Integrate</b><span>Academic, payment and sentiment data joined into one model in Microsoft Access.</span></li>
+          <li class="glass"><b>Train</b><span>Random Forest, XGBoost and Logistic Regression trained in Python.</span></li>
+          <li class="glass"><b>Compare</b><span>Models compared on accuracy and F1-score.</span></li>
+          <li class="glass"><b>Ship &amp; test</b><span>Results in a Power BI dashboard, then user acceptance testing.</span></li>
+        </ol>
+      </section>
+
+      <section class="cs-section" id="approach" data-reveal>
+        <h2><span class="k">05</span>Analytical approach</h2>
+        <ul class="cs-list">
+          <li><b>Three model families compared:</b> a linear baseline (Logistic Regression) against two tree ensembles (Random Forest, XGBoost).</li>
+          <li><b>Two measures:</b> accuracy, plus F1-score, which balances precision and recall. Accuracy alone can look good when most students stay.</li>
+          <li><b>Delivery:</b> a Power BI dashboard that filters predicted risk by term, program and risk category.</li>
+          <li><b>Validation with users:</b> user acceptance testing on data refresh and satisfaction.</li>
+        </ul>
+      </section>
+
+      <section class="cs-section" id="dashboard" data-reveal>
+        <h2><span class="k">06</span>Results &amp; dashboard</h2>
+        <figure class="glass" style="padding:1.25rem 1.35rem">
+          <div class="gen-bars" style="width:100%" role="img" aria-label="Four measures on a shared 0 to 100 percent scale: accuracy 90.26 percent, F1-score 86.97 percent, UAT refresh success 100 percent, UAT satisfaction 95.2 percent.">
+            <div><span>Accuracy</span><i style="--v:90.26%"></i><b>90.26%</b></div>
+            <div><span>F1-score</span><i style="--v:86.97%"></i><b>86.97%</b></div>
+            <div><span>UAT refresh</span><i style="--v:100%"></i><b>100%</b></div>
+            <div><span>UAT satisfaction</span><i style="--v:95.2%"></i><b>95.2%</b></div>
+          </div>
+          <figcaption class="micro" style="margin-top:1rem;text-transform:none;letter-spacing:.01em">Shared 0–100% scale, not truncated.</figcaption>
+        </figure>
+        <figure class="slot slot--optional" data-state="empty" data-slot="case-3-dashboard">
+          <button class="slot-shot" type="button" hidden><img alt="The churn prediction dashboard, showing student risk filtered by term, program and category." hidden></button>
+          <div class="slot-inner"><span class="slot-file vh"><code>../assets/img/case-3-dashboard.png</code></span></div>
+          <figcaption>Power BI · student risk filtered by term, program and risk category. Click to enlarge.</figcaption>
+        </figure>
+      </section>
+
+      <section class="cs-section" id="impact" data-reveal>
+        <h2><span class="k">07</span>Business impact</h2>
+        <div class="verified">
+          <div class="glass is-verified">
+            <h3>Verified outcomes</h3>
+            <ul>
+              <li>90.26% accuracy and 86.97% F1-score in flagging at-risk students.</li>
+              <li>User acceptance testing: 100% data refresh success and 95.2% user satisfaction.</li>
+              <li>A Power BI dashboard stakeholders filter by term, program and risk category themselves.</li>
+            </ul>
+          </div>
+          <div class="glass is-potential">
+            <h3>Potential benefits</h3>
+            <ul>
+              <li>Reaching at-risk students earlier, while there is still time to help.</li>
+              <li>Focusing retention effort on the programs and terms with the most risk.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-section" id="tools" data-reveal>
+        <h2><span class="k">08</span>Tools used</h2>
+        <ul class="tags"><li class="chip chip--accent">Python</li><li class="chip chip--accent">Power BI</li><li class="chip">Microsoft Access</li><li class="chip">Random Forest</li><li class="chip">XGBoost</li><li class="chip">Logistic Regression</li><li class="chip">Predictive modeling</li><li class="chip">User acceptance testing</li></ul>
+      </section>
+    </div>
+  </div>
+
+  <nav class="shell cs-pager" aria-label="More case studies">
+    <a class="glass" href="student-performance-dashboards.html"><span class="micro">← Previous</span><b>Student performance &amp; passing-rate dashboards</b></a>
+    <a class="glass" href="campaign-performance-analytics.html"><span class="micro">Next case study →</span><b>Campaign performance analytics</b></a>
+  </nav>
+</main>
+
+<footer class="foot">
+  <div class="shell foot-inner">
+    <p class="micro">© 2026 Arabella D. Pabular</p>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="../assets/docs/Arabella-Pabular-Data-Analyst-Resume.pdf" download>Resume (PDF)</a>
+      <a href="https://www.linkedin.com/in/arabella-pabular-204942289" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+    <a class="to-top" href="#main"><span class="micro">Back to top</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-up"/></svg></a>
+  </div>
+</footer>
+</div>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close image"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-close"/></svg></button>
+  <figure><img id="lightbox-img" alt=""><figcaption id="lightbox-cap" class="micro"></figcaption></figure>
+</div>
+<p class="vh" id="copy-status" role="status" aria-live="polite"></p>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

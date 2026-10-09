@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Campaign Performance Analytics — Case Study · Arabella D. Pabular</title>
+<meta name="description" content="Case study: a Google Sheets and Apps Script web dashboard over 10,000 digital ad campaigns, with profit, margin and ROAS KPIs, nine filters and five pages. Public Kaggle dataset.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#050807">
+<link rel="canonical" href="https://aetherbella.github.io/projects/campaign-performance-analytics.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Campaign Performance Analytics — Case Study">
+<meta property="og:description" content="10,000 campaigns, 41 columns, nine live filters: $43.46M spend returned $284.16M revenue, a 6.54x ROAS.">
+<meta property="og:image" content="https://aetherbella.github.io/assets/img/og.png">
+<script>!function(){try{var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("apab-theme");("dark"===t||"light"===t)&&d.setAttribute("data-theme",t);"on"===localStorage.getItem("apab-sources")&&d.classList.add("sources-on")}catch(e){}}()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/img/icon-180.png">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <g id="i-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g>
+  <g id="i-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></g>
+  <g id="i-menu"><path d="M4 6h16M4 12h16M4 18h16"/></g>
+  <g id="i-close"><path d="M18 6 6 18M6 6l12 12"/></g>
+  <g id="i-download"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></g>
+  <g id="i-upright"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></g>
+  <g id="i-up"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></g>
+  <g id="i-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></g>
+  <g id="i-play"><path d="M5 3.5v17l14-8.5z"/></g>
+  <g id="i-image"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></g>
+</defs></svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="page">
+<header class="nav" id="nav">
+  <div class="shell nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2.5" y="8" width="3" height="6" fill="currentColor" opacity="0.5"/><rect x="7" y="4.5" width="3" height="9.5" fill="currentColor"/><rect x="11.5" y="10.5" width="3" height="3.5" fill="currentColor" opacity="0.5"/></svg></span>
+      <span class="brand-name"><b>Arabella Pabular</b><span>Data Analyst</span></span>
+      <span class="vh">, home</span>
+    </a>
+    <nav class="nav-links" id="navlinks" aria-label="Site">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects" aria-current="page">Projects</a>
+      <a href="../index.html#dashboards">Dashboards</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#contact">Contact</a>
+      <span class="nav-ind" id="navind" aria-hidden="true"></span>
+    </nav>
+    <div class="nav-tools">
+      <button class="pill" id="sources" type="button" aria-pressed="false" title="Show where every figure on this page comes from">Sources<span class="n" id="sources-n"></span></button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch to light theme"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-sun" id="theme-icon"/></svg></button>
+      <a class="btn btn-primary btn--sm" href="../assets/docs/Arabella-Pabular-Data-Analyst-Resume.pdf" download><span><span class="cv-long">Download </span>Resume</span><span class="ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-download"/></svg></span></a>
+      <button class="icon-btn nav-toggle" id="navtoggle" type="button" aria-expanded="false" aria-controls="navlinks" aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-menu" id="navtoggle-icon"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<section class="cs-hero">
+    <div class="shell">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../index.html#projects">Projects</a><span aria-hidden="true">/</span><span aria-current="page">Campaign performance analytics</span></nav>
+      <p class="eyebrow" style="margin-top:1.4rem">Case study 04 · Marketing</p>
+      <h1 class="s-title">Campaign performance <span class="accent">analytics</span></h1>
+      <p class="lede">A public dataset of 10,000 digital ad campaigns ran 41 columns wide. I connected it in Google Sheets, added profit, margin and ROAS calculations, and built a Google Apps Script web app on top: five pages and nine filters, with every KPI recalculating as the filters change.</p>
+      <dl class="cs-meta glass">
+        <div><dt>Project type</dt><dd>Portfolio project · public Kaggle data</dd></div>
+        <div><dt>Period</dt><dd>Oct 2026</dd></div>
+        <div><dt>Tools</dt><dd>Google Sheets, Google Apps Script</dd></div>
+        <div><dt>Status</dt><dd>Live web app</dd></div>
+      </dl>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://script.google.com/macros/s/AKfycbzCHymbsDBk4rxQ4K7v3bkU-MygX-_5_xMVf3I42EPVuDA_x2kNFrJVzxo1gNPpK180/exec" target="_blank" rel="noopener">Open the live dashboard<span class="ico" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-upright"/></svg></span><span class="vh"> (opens in a new tab)</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell" aria-label="Key figures">
+    <div class="kpis">
+      <div class="kpi glass"><span class="num">10,000</span><span class="lab">campaigns, 41 columns each</span></div>
+      <div class="kpi glass"><span class="num">$284.16<span class="u">M</span></span><span class="lab">revenue on $43.46M of ad spend</span></div>
+      <div class="kpi glass"><span class="num">6.54<span class="u">x</span></span><span class="lab">return on ad spend across all campaigns</span></div>
+      <div class="kpi glass"><span class="num">84.71<span class="u">%</span></span><span class="lab">profit margin ($240.70M profit)</span></div>
+    </div>
+    <p class="cite"><span><span class="in">Dashboard · Overview page with every filter set to All, read 9 Oct 2026. Figures describe the public dataset, not a client.</span></span></p>
+  </section>
+
+  <div class="shell cs-layout">
+    <aside class="cs-toc glass" aria-label="On this page">
+      <p class="micro">On this page</p>
+      <ol>
+        <li><a href="#problem" data-k="01">Business problem</a></li>
+        <li><a href="#objectives" data-k="02">Objectives</a></li>
+        <li><a href="#dataset" data-k="03">Dataset</a></li>
+        <li><a href="#preparation" data-k="04">Data preparation</a></li>
+        <li><a href="#approach" data-k="05">Analytical approach</a></li>
+        <li><a href="#dashboard" data-k="06">Dashboard &amp; findings</a></li>
+        <li><a href="#impact" data-k="07">Business impact</a></li>
+        <li><a href="#tools" data-k="08">Tools used</a></li>
+        <li><a href="#links" data-k="09">Project links</a></li>
+      </ol>
+    </aside>
+
+    <div class="cs-content">
+      <section class="cs-section" id="problem" data-reveal>
+        <h2><span class="k">01</span>Business problem</h2>
+        <p>A marketing team running campaigns across several platforms wants one answer above all: where does each dollar of ad spend come back largest? In a flat sheet of 10,000 rows and 41 columns, that answer is buried. Comparing platforms, objectives, audiences and creatives meant filtering and pivoting by hand every time.</p>
+      </section>
+
+      <section class="cs-section" id="objectives" data-reveal>
+        <h2><span class="k">02</span>Objectives</h2>
+        <ul class="cs-list">
+          <li>Track <b>campaign performance, audience behavior and profitability</b> in one shareable dashboard.</li>
+          <li>Show which <b>platforms and objectives</b> return the most revenue per dollar spent.</li>
+          <li>Break results down by <b>audience</b> (device type, target gender) and <b>creative</b>.</li>
+          <li>Let anyone <b>filter and review results without working in the spreadsheet</b>.</li>
+        </ul>
+      </section>
+
+      <section class="cs-section" id="dataset" data-reveal>
+        <h2><span class="k">03</span>Dataset</h2>
+        <dl class="facts glass">
+          <div><dt>Source</dt><dd>Kaggle · "Digital Advertising Campaign Performance Dataset"</dd></div>
+          <div><dt>Size</dt><dd>10,000 records × 41 columns</dd></div>
+          <div><dt>Dimensions</dt><dd>Platform, objective, industry, device type, target gender, budget tier, date</dd></div>
+          <div><dt>Measures</dt><dd>Impressions, clicks, conversions, ad spend, revenue</dd></div>
+        </dl>
+        <div class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-info"/></svg><p><b>Public dataset, not client work.</b> Every figure on this page describes the Kaggle dataset. It shows how I build and read a dashboard, not results I produced for a business.</p></div>
+      </section>
+
+      <section class="cs-section" id="preparation" data-reveal>
+        <h2><span class="k">04</span>Data preparation</h2>
+        <ol class="flow" style="--n:4">
+          <li class="glass"><b>Load</b><span>The 10,000-row, 41-column dataset connected in Google Sheets as the single source.</span></li>
+          <li class="glass"><b>Derive</b><span>Profit, margin and ROAS calculations added alongside the raw measures.</span></li>
+          <li class="glass"><b>Serve</b><span>Google Apps Script reads the sheet and serves it as a web app.</span></li>
+          <li class="glass"><b>Refresh</b><span>The dashboard refreshes from the source sheet, so edits flow through.</span></li>
+        </ol>
+      </section>
+
+      <section class="cs-section" id="approach" data-reveal>
+        <h2><span class="k">05</span>Analytical approach</h2>
+        <p>Each KPI card follows a standard definition. Each was checked against the dashboard's own totals.</p>
+        <dl class="facts glass">
+          <div><dt>CTR</dt><dd>Clicks ÷ impressions = 2.16%</dd></div>
+          <div><dt>Avg CPC</dt><dd>Ad spend ÷ clicks = $2.85</dd></div>
+          <div><dt>Conversion rate</dt><dd>Conversions ÷ clicks = 4.30%</dd></div>
+          <div><dt>CPA</dt><dd>Ad spend ÷ conversions = $66</dd></div>
+          <div><dt>Profit</dt><dd>Revenue − ad spend = $240.70M</dd></div>
+          <div><dt>Margin</dt><dd>Profit ÷ revenue = 84.71%</dd></div>
+          <div><dt>ROAS</dt><dd>Revenue ÷ ad spend = 6.54x</dd></div>
+          <div><dt>Revenue per campaign</dt><dd>Revenue ÷ campaigns = $28,416</dd></div>
+        </dl>
+        <p>Nine filters (platform, objective, industry, device type, target gender, budget tier, year, quarter and month) apply to every page. The pages are Overview, Campaign Performance, Audience, Creative Analysis and Insights.</p>
+      </section>
+
+      <section class="cs-section" id="dashboard" data-reveal>
+        <h2><span class="k">06</span>Dashboard &amp; findings</h2>
+        <figure class="slot slot--embed slot--app" style="--ratio: 16 / 10" data-state="empty" data-embed="https://script.google.com/macros/s/AKfycbzCHymbsDBk4rxQ4K7v3bkU-MygX-_5_xMVf3I42EPVuDA_x2kNFrJVzxo1gNPpK180/exec" data-embed-title="Interactive campaign performance dashboard, a Google Apps Script web app">
+          <button class="embed-load" type="button" hidden><img class="el-thumb" src="../assets/img/work/campaign-dashboard-preview.webp" width="1600" height="1000" loading="lazy" decoding="async" alt="" onerror="this.remove()"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-play"/></svg><span class="el-title">Load the campaign dashboard</span><span class="el-note">Opens the live Google Apps Script web app. Nothing is requested from Google until you click.</span></button>
+          <div class="slot-inner"><span class="slot-what">Live dashboard</span></div>
+        </figure>
+        <ul class="cs-list">
+          <li><b>Strong overall return.</b> $43.46M of ad spend returned $284.16M of revenue: a 6.54x ROAS and an 84.71% margin.</li>
+          <li><b>The funnel narrows fast.</b> 705.4M impressions became 15.3M clicks (2.16% CTR) and 655,688 conversions (4.30% of clicks).</li>
+          <li><b>Campaign mix is concentrated.</b> Google Ads ran 29.3% of campaigns and Facebook 25.3%, ahead of LinkedIn (14.7%), TikTok (12.1%), Twitter (10.3%) and Instagram (8.3%).</li>
+        </ul>
+        <p class="embed-limit">The full-width embed fills the content column. The app itself sets its own internal layout, which is designed for desktop widths; on phones, "Open the live dashboard" gives the best view.</p>
+      </section>
+
+      <section class="cs-section" id="impact" data-reveal>
+        <h2><span class="k">07</span>Business impact</h2>
+        <div class="verified">
+          <div class="glass is-verified">
+            <h3>Verified outcomes</h3>
+            <ul>
+              <li>A browser-based dashboard that refreshes from the source sheet.</li>
+              <li>Anyone with the link can filter and review campaign results without opening or editing the spreadsheet.</li>
+            </ul>
+          </div>
+          <div class="glass is-potential">
+            <h3>Potential benefits</h3>
+            <ul>
+              <li>Shifting budget toward the platforms and objectives with the highest ROAS.</li>
+              <li>Spotting audience segments or creatives that cost more per conversion.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-section" id="tools" data-reveal>
+        <h2><span class="k">08</span>Tools used</h2>
+        <ul class="tags"><li class="chip chip--accent">Google Sheets</li><li class="chip chip--accent">Google Apps Script</li><li class="chip">Web app deployment</li><li class="chip">KPI design</li><li class="chip">Dashboard design</li><li class="chip">Trend analysis</li></ul>
+      </section>
+
+      <section class="cs-section" id="links" data-reveal>
+        <h2><span class="k">09</span>Project links</h2>
+        <div class="slot-links">
+          <a class="slot-link" href="https://script.google.com/macros/s/AKfycbzCHymbsDBk4rxQ4K7v3bkU-MygX-_5_xMVf3I42EPVuDA_x2kNFrJVzxo1gNPpK180/exec" target="_blank" rel="noopener">Live dashboard ↗</a>
+          <a class="slot-link" href="https://www.kaggle.com/datasets/juniornsa/digital-advertising-campaign-performance-dataset" target="_blank" rel="noopener">Source dataset on Kaggle ↗</a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <nav class="shell cs-pager" aria-label="More case studies">
+    <a class="glass" href="student-churn-prediction.html"><span class="micro">← Previous</span><b>Student churn prediction</b></a>
+    <a class="glass" href="motorph-sales-inventory.html"><span class="micro">Next case study →</span><b>MotorPH sales &amp; inventory insights</b></a>
+  </nav>
+</main>
+
+<footer class="foot">
+  <div class="shell foot-inner">
+    <p class="micro">© 2026 Arabella D. Pabular</p>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="../assets/docs/Arabella-Pabular-Data-Analyst-Resume.pdf" download>Resume (PDF)</a>
+      <a href="https://www.linkedin.com/in/arabella-pabular-204942289" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+    <a class="to-top" href="#main"><span class="micro">Back to top</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-up"/></svg></a>
+  </div>
+</footer>
+</div>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close image"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-close"/></svg></button>
+  <figure><img id="lightbox-img" alt=""><figcaption id="lightbox-cap" class="micro"></figcaption></figure>
+</div>
+<p class="vh" id="copy-status" role="status" aria-live="polite"></p>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
