@@ -15,13 +15,13 @@
 <meta property="profile:first_name" content="Arabella">
 <meta property="profile:last_name" content="Pabular">
 <meta property="og:title" content="Arabella D. Pabular — Data Analyst">
-<meta property="og:description" content="Dashboards, data cleaning and recurring KPI reporting. 3,300+ ER records consolidated, 500+ student records cleaned, a churn model at 90.26% accuracy.">
+<meta property="og:description" content="Dashboards, data cleaning and recurring KPI reporting. 3,300+ ER records consolidated, 500+ student records cleaned, a churn model at 93.99% accuracy.">
 <link rel="canonical" href="https://aetherbella.github.io/">
 <meta property="og:url" content="https://aetherbella.github.io/">
 <meta property="og:image" content="https://aetherbella.github.io/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Arabella D. Pabular, Data Analyst. 3,300+ emergency room records analyzed, 500+ students' records cleaned, 90.26% predictive model accuracy, 95.2% user satisfaction at UAT.">
+<meta property="og:image:alt" content="Arabella D. Pabular, Data Analyst. 3,300+ emergency room records analyzed, 500+ students' records cleaned, 93.99% predictive model accuracy, 100% dashboard refresh success at UAT.">
 <meta name="twitter:card" content="summary_large_image">
 <script>!function(){try{var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("apab-theme");("dark"===t||"light"===t)&&d.setAttribute("data-theme",t);"on"===localStorage.getItem("apab-sources")&&d.classList.add("sources-on")}catch(e){}}()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,8 +166,8 @@
     <div class="stats-inner glass">
       <a class="stat" href="projects/er-mortality-dashboards.html"><span class="num">3,300<span class="u">+</span></span><span class="bar"></span><span class="lab">emergency room records consolidated and cleaned</span><span class="src micro">La Castellana Primary Care · 2026</span></a>
       <a class="stat" href="projects/student-performance-dashboards.html"><span class="num">500<span class="u">+</span></span><span class="bar"></span><span class="lab">students' LMS and assessment records cleaned</span><span class="src micro">Kippap Learning Corp · 2026</span></a>
-      <a class="stat" href="projects/student-churn-prediction.html"><span class="num">90.26<span class="u">%</span></span><span class="bar"></span><span class="lab">churn model accuracy</span><span class="src micro">Capstone · 86.97% F1-score</span></a>
-      <a class="stat" href="projects/student-churn-prediction.html"><span class="num">95.2<span class="u">%</span></span><span class="bar"></span><span class="lab">user satisfaction at UAT</span><span class="src micro">Capstone · 100% refresh success</span></a>
+      <a class="stat" href="projects/student-churn-prediction.html"><span class="num">93.99<span class="u">%</span></span><span class="bar"></span><span class="lab">churn model accuracy</span><span class="src micro">Capstone · 0.9053 F1-score</span></a>
+      <a class="stat" href="projects/student-churn-prediction.html"><span class="num">100<span class="u">%</span></span><span class="bar"></span><span class="lab">dashboard refresh success at UAT</span><span class="src micro">Capstone · pilot users rated 88.6% and 91.4%</span></a>
     </div>
     <p class="stats-foot micro">Each figure links to the case study it came from.</p>
   </div>
@@ -306,7 +306,7 @@
     <ol class="process">
       <li class="step glass" data-reveal><h3>Consolidate</h3><p>Bring scattered exports into one dataset.</p><span class="proof micro">3,300+ ER intake and treatment records, La Castellana</span></li>
       <li class="step glass" data-reveal><h3>Clean &amp; validate</h3><p>Fix duplicates, gaps, types and outliers, then check the result adds up.</p><span class="proof micro">Quality issues resolved across 10+ datasets, Kippap</span></li>
-      <li class="step glass" data-reveal><h3>Analyze</h3><p>Define the KPIs, then measure, segment or model.</p><span class="proof micro">Random Forest, XGBoost and Logistic Regression compared, capstone</span></li>
+      <li class="step glass" data-reveal><h3>Analyze</h3><p>Define the KPIs, then measure, segment or model.</p><span class="proof micro">Logistic Regression, Random Forest and HistGradientBoosting compared, capstone</span></li>
       <li class="step glass" data-reveal><h3>Visualize</h3><p>One dashboard people can filter without help.</p><span class="proof micro">Power BI, Google Sheets, Apps Script and Tableau dashboards</span></li>
       <li class="step glass" data-reveal><h3>Report</h3><p>Deliver it on a schedule, with a note on what moved.</p><span class="proof micro">Weekly Power BI reports to instructors and stakeholders, Kippap</span></li>
     </ol>
@@ -359,10 +359,10 @@
         <div class="pc-thumb pc-thumb--gen" aria-hidden="true">
           <span class="badge">Capstone</span>
           <div class="gen-bars">
-            <div><span>Accuracy</span><i style="--v:90.26%"></i><b>90.26%</b></div>
-            <div><span>F1-score</span><i style="--v:86.97%"></i><b>86.97%</b></div>
+            <div><span>Accuracy</span><i style="--v:93.99%"></i><b>93.99%</b></div>
+            <div><span>F1-score</span><i style="--v:90.53%"></i><b>0.9053</b></div>
+            <div><span>ROC-AUC</span><i style="--v:97.57%"></i><b>0.9757</b></div>
             <div><span>UAT refresh</span><i style="--v:100%"></i><b>100%</b></div>
-            <div><span>UAT satisfaction</span><i style="--v:95.2%"></i><b>95.2%</b></div>
           </div>
         </div>
         <div class="pc-body">
@@ -370,7 +370,7 @@
           <h3 class="pc-title"><a href="projects/student-churn-prediction.html">Student churn prediction</a></h3>
           <p class="pc-problem">The signals that a student was about to drop out sat in academic, payment and sentiment data that never spoke to each other.</p>
           <ul class="tags" aria-label="Tools"><li class="chip">Microsoft Access</li><li class="chip">Python</li><li class="chip">Power BI</li></ul>
-          <p class="pc-insight"><span class="micro">Result</span>90.26% accuracy and 86.97% F1-score; UAT showed 100% refresh success and 95.2% user satisfaction.</p>
+          <p class="pc-insight"><span class="micro">Result</span>Logistic Regression reached 93.99% accuracy and 0.9053 F1 under student-grouped cross-validation; UAT showed 100% refresh success, and both pilot users rated the dashboard above the 80% target.</p>
           <div class="pc-links"><a class="link-arrow link-arrow--primary" href="projects/student-churn-prediction.html">View case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-right"/></svg></a></div>
         </div>
       </article>
@@ -497,7 +497,7 @@
       <article class="svc glass" data-reveal><span class="svc-mark" aria-hidden="true"><svg width="56" height="24" viewBox="0 0 56 24" fill="none"><path d="M0 22h56" stroke="currentColor" stroke-width="1" opacity=".4"/><g fill="currentColor" opacity=".35"><rect x="2" y="8" width="5" height="12"/><rect x="15" y="8" width="5" height="12"/><rect x="28" y="8" width="5" height="12"/></g><rect x="41" y="8" width="5" height="12" fill="currentColor"/></svg></span><h3>Reports that arrive on schedule</h3><p>A weekly or monthly report that lands without you chasing it, in the same shape every time, with a short written note on what moved and what did not.</p><p class="proof micro">Proven by weekly Power BI reports delivered to instructors and stakeholders at Kippap</p></article>
       <article class="svc glass" data-reveal><span class="svc-mark" aria-hidden="true"><svg width="56" height="24" viewBox="0 0 56 24" fill="none" stroke="currentColor"><path d="M0 19h9v-5h9v-6h9v9h9V6h9v-4h11" stroke-width="1.6" opacity=".4" fill="none"/><circle cx="53" cy="2" r="3" fill="currentColor" stroke="none"/></svg></span><h3>KPI tracking, set up from scratch</h3><p>We pick the handful of numbers that actually decide your week. I set up the tracking, the definitions and the refresh, so those numbers stay live instead of being rebuilt by hand every time somebody asks.</p><p class="proof micro">Proven by a support tracker with real-time KPIs at Kippap, 60+ cases a month with root causes</p></article>
       <article class="svc glass" data-reveal><span class="svc-mark" aria-hidden="true"><svg width="56" height="24" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="2" width="20" height="7" opacity=".35"/><rect x="1" y="15" width="20" height="7" opacity=".35"/><path d="M21 5.5h8M21 18.5h8M29 5.5v13M29 12h9" opacity=".5"/><rect x="38" y="8" width="17" height="8"/></svg></span><h3>SQL and database work</h3><p>Data that has outgrown a spreadsheet gets tables, keys and queries instead of another tab. Joining sources that were never designed to talk to each other is usually the first job.</p><p class="proof micro">Proven by 500+ student records cleaned in MySQL Workbench, and academic, payment and sentiment data integrated in Microsoft Access</p></article>
-      <article class="svc glass" data-reveal><span class="svc-mark" aria-hidden="true"><svg width="56" height="24" viewBox="0 0 56 24" fill="none"><g fill="currentColor" opacity=".35"><circle cx="5" cy="18" r="2"/><circle cx="13" cy="15" r="2"/><circle cx="20" cy="16" r="2"/><circle cx="27" cy="11" r="2"/><circle cx="35" cy="10" r="2"/><circle cx="42" cy="6" r="2"/><circle cx="49" cy="7" r="2"/></g><path d="M2 20 54 4" stroke="currentColor" stroke-width="1.8"/></svg></span><h3>Risk scoring from your own history</h3><p>If you have a record of who stayed and who left, that record can score who is at risk now. Trained, measured and user-tested before anyone acts on it.</p><p class="proof micro">Proven by the capstone churn model at 90.26% accuracy and 86.97% F1, validated in UAT</p></article>
+      <article class="svc glass" data-reveal><span class="svc-mark" aria-hidden="true"><svg width="56" height="24" viewBox="0 0 56 24" fill="none"><g fill="currentColor" opacity=".35"><circle cx="5" cy="18" r="2"/><circle cx="13" cy="15" r="2"/><circle cx="20" cy="16" r="2"/><circle cx="27" cy="11" r="2"/><circle cx="35" cy="10" r="2"/><circle cx="42" cy="6" r="2"/><circle cx="49" cy="7" r="2"/></g><path d="M2 20 54 4" stroke="currentColor" stroke-width="1.8"/></svg></span><h3>Risk scoring from your own history</h3><p>If you have a record of who stayed and who left, that record can score who is at risk now. Trained, measured and user-tested before anyone acts on it.</p><p class="proof micro">Proven by the capstone churn model at 93.99% accuracy and 0.9053 F1, validated in UAT</p></article>
     </div>
     <p class="svc-foot micro">Remote, from Negros Occidental, Philippines (UTC+8)</p>
   </div>
