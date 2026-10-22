@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Student Churn Prediction — Case Study · Arabella D. Pabular</title>
-<meta name="description" content="Case study: integrating academic, payment and sentiment data in Microsoft Access, comparing Random Forest, XGBoost and Logistic Regression in Python, and shipping a Power BI risk dashboard. 90.26% accuracy, 86.97% F1.">
+<meta name="description" content="Case study: integrating academic, payment and sentiment data in Microsoft Access, comparing Logistic Regression, Random Forest and HistGradientBoosting in Python with leakage-safe, student-grouped validation, and shipping a Power BI risk dashboard. 93.99% accuracy, 0.9053 F1.">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#050807">
 <link rel="canonical" href="https://aetherbella.github.io/projects/student-churn-prediction.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Student Churn Prediction — Case Study">
-<meta property="og:description" content="90.26% accuracy, 86.97% F1-score, 100% UAT refresh success and 95.2% user satisfaction.">
+<meta property="og:description" content="93.99% accuracy, 0.9053 F1-score and 0.9757 ROC-AUC (Logistic Regression, cross-validated), with 100% UAT refresh success.">
 <meta property="og:image" content="https://aetherbella.github.io/assets/img/og.png">
 <script>!function(){try{var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("apab-theme");("dark"===t||"light"===t)&&d.setAttribute("data-theme",t);"on"===localStorage.getItem("apab-sources")&&d.classList.add("sources-on")}catch(e){}}()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,12 +80,12 @@
 
   <section class="shell" aria-label="Key figures">
     <div class="kpis">
-      <div class="kpi glass"><span class="num">90.26<span class="u">%</span></span><span class="lab">model accuracy</span></div>
-      <div class="kpi glass"><span class="num">86.97<span class="u">%</span></span><span class="lab">F1-score</span></div>
+      <div class="kpi glass"><span class="num">93.99<span class="u">%</span></span><span class="lab">model accuracy (Logistic Regression, cross-validated)</span></div>
+      <div class="kpi glass"><span class="num">0.9053</span><span class="lab">F1-score</span></div>
+      <div class="kpi glass"><span class="num">0.9757</span><span class="lab">ROC-AUC</span></div>
       <div class="kpi glass"><span class="num">100<span class="u">%</span></span><span class="lab">data refresh success in user acceptance testing</span></div>
-      <div class="kpi glass"><span class="num">95.2<span class="u">%</span></span><span class="lab">user satisfaction in user acceptance testing</span></div>
     </div>
-    <p class="cite"><span><span class="in">Resume · Projects: Student Churn Prediction, "Result".</span></span></p>
+    <p class="cite"><span><span class="in">Capstone paper · Chapter 4 results and Table 19, System Evaluation Summary.</span></span></p>
   </section>
 
   <div class="shell cs-layout">
@@ -113,7 +113,7 @@
         <h2><span class="k">02</span>Objectives</h2>
         <ul class="cs-list">
           <li>Can combining academic, payment and sentiment data <b>flag at-risk students early</b>?</li>
-          <li>Which of <b>Random Forest, XGBoost and Logistic Regression</b> predicts churn best on this data?</li>
+          <li>Which of <b>Logistic Regression, Random Forest and HistGradientBoosting</b> predicts churn best on this data, without leaking the answer into the features?</li>
           <li>Can stakeholders <b>filter student risk</b> by term, program and risk category themselves, without an analyst?</li>
         </ul>
       </section>
@@ -132,8 +132,8 @@
         <h2><span class="k">04</span>Data preparation</h2>
         <ol class="flow" style="--n:4">
           <li class="glass"><b>Integrate</b><span>Academic, payment and sentiment data joined into one model in Microsoft Access.</span></li>
-          <li class="glass"><b>Train</b><span>Random Forest, XGBoost and Logistic Regression trained in Python.</span></li>
-          <li class="glass"><b>Compare</b><span>Models compared on accuracy and F1-score.</span></li>
+          <li class="glass"><b>Guard &amp; train</b><span>Outcome and status columns removed, alerts lagged to the previous term, then Logistic Regression, Random Forest and HistGradientBoosting trained in Python.</span></li>
+          <li class="glass"><b>Compare</b><span>5-fold cross-validation grouped by student, scored on accuracy, precision, recall, F1 and ROC-AUC.</span></li>
           <li class="glass"><b>Ship &amp; test</b><span>Results in a Power BI dashboard, then user acceptance testing.</span></li>
         </ol>
       </section>
@@ -141,21 +141,22 @@
       <section class="cs-section" id="approach" data-reveal>
         <h2><span class="k">05</span>Analytical approach</h2>
         <ul class="cs-list">
-          <li><b>Three model families compared:</b> a linear baseline (Logistic Regression) against two tree ensembles (Random Forest, XGBoost).</li>
-          <li><b>Two measures:</b> accuracy, plus F1-score, which balances precision and recall. Accuracy alone can look good when most students stay.</li>
+          <li><b>Three model families compared:</b> a linear baseline (Logistic Regression) against two tree ensembles (Random Forest, HistGradientBoosting).</li>
+          <li><b>Leakage controls:</b> folds grouped by Student_ID so no student appears in both training and validation, and features limited to what was known before the outcome.</li>
+          <li><b>Model choice:</b> HistGradientBoosting scored highest (95.50% accuracy, 0.9265 F1), but Logistic Regression (93.99% accuracy, 0.9053 F1) went to production because staff can see which factors drive each student's risk.</li>
           <li><b>Delivery:</b> a Power BI dashboard that filters predicted risk by term, program and risk category.</li>
-          <li><b>Validation with users:</b> user acceptance testing on data refresh and satisfaction.</li>
+          <li><b>Validation with users:</b> user acceptance testing with two pilot users from Student Affairs and Student Financial Services.</li>
         </ul>
       </section>
 
       <section class="cs-section" id="dashboard" data-reveal>
         <h2><span class="k">06</span>Results &amp; dashboard</h2>
         <figure class="glass" style="padding:1.25rem 1.35rem">
-          <div class="gen-bars" style="width:100%" role="img" aria-label="Four measures on a shared 0 to 100 percent scale: accuracy 90.26 percent, F1-score 86.97 percent, UAT refresh success 100 percent, UAT satisfaction 95.2 percent.">
-            <div><span>Accuracy</span><i style="--v:90.26%"></i><b>90.26%</b></div>
-            <div><span>F1-score</span><i style="--v:86.97%"></i><b>86.97%</b></div>
+          <div class="gen-bars" style="width:100%" role="img" aria-label="Four measures on a shared 0 to 100 percent scale: accuracy 93.99 percent, F1-score 0.9053, ROC-AUC 0.9757, UAT refresh success 100 percent.">
+            <div><span>Accuracy</span><i style="--v:93.99%"></i><b>93.99%</b></div>
+            <div><span>F1-score</span><i style="--v:90.53%"></i><b>0.9053</b></div>
+            <div><span>ROC-AUC</span><i style="--v:97.57%"></i><b>0.9757</b></div>
             <div><span>UAT refresh</span><i style="--v:100%"></i><b>100%</b></div>
-            <div><span>UAT satisfaction</span><i style="--v:95.2%"></i><b>95.2%</b></div>
           </div>
           <figcaption class="micro" style="margin-top:1rem;text-transform:none;letter-spacing:.01em">Shared 0–100% scale, not truncated.</figcaption>
         </figure>
@@ -172,8 +173,8 @@
           <div class="glass is-verified">
             <h3>Verified outcomes</h3>
             <ul>
-              <li>90.26% accuracy and 86.97% F1-score in flagging at-risk students.</li>
-              <li>User acceptance testing: 100% data refresh success and 95.2% user satisfaction.</li>
+              <li>Logistic Regression flagged at-risk students with 93.99% accuracy, 0.9053 F1 and 0.9757 ROC-AUC under student-grouped 5-fold cross-validation.</li>
+              <li>User acceptance testing: 100% data refresh success, and both pilot users rated the dashboard above the 80% target (88.6% and 91.4%).</li>
               <li>A Power BI dashboard stakeholders filter by term, program and risk category themselves.</li>
             </ul>
           </div>
@@ -189,7 +190,7 @@
 
       <section class="cs-section" id="tools" data-reveal>
         <h2><span class="k">08</span>Tools used</h2>
-        <ul class="tags"><li class="chip chip--accent">Python</li><li class="chip chip--accent">Power BI</li><li class="chip">Microsoft Access</li><li class="chip">Random Forest</li><li class="chip">XGBoost</li><li class="chip">Logistic Regression</li><li class="chip">Predictive modeling</li><li class="chip">User acceptance testing</li></ul>
+        <ul class="tags"><li class="chip chip--accent">Python</li><li class="chip chip--accent">Power BI</li><li class="chip">Microsoft Access</li><li class="chip">Logistic Regression</li><li class="chip">Random Forest</li><li class="chip">HistGradientBoosting</li><li class="chip">Predictive modeling</li><li class="chip">User acceptance testing</li></ul>
       </section>
     </div>
   </div>
