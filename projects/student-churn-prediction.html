@@ -136,6 +136,13 @@
           <li class="glass"><b>Compare</b><span>5-fold cross-validation grouped by student, scored on accuracy, precision, recall, F1 and ROC-AUC.</span></li>
           <li class="glass"><b>Ship &amp; test</b><span>Results in a Power BI dashboard, then user acceptance testing.</span></li>
         </ol>
+        <p>Most of the preparation went into keeping the answer out of the features. Each guard below prints exactly what it removed, so the choices can be checked.</p>
+        <div class="verified">
+          <figure class="slot cs-figure" style="margin:0"><button class="slot-shot" type="button"><img src="../assets/img/work/churn-code-leak-patterns.png" width="846" height="406" loading="lazy" decoding="async" alt="Python code that drops student IDs, raw dates and columns matching outcome patterns such as enrollment status, dropped and payment completion flags."></button><figcaption>Outcome and status columns matched by pattern and dropped. Click to enlarge.</figcaption></figure>
+          <figure class="slot cs-figure" style="margin:0"><button class="slot-shot" type="button"><img src="../assets/img/work/churn-code-leak-guard.png" width="833" height="529" loading="lazy" decoding="async" alt="Python code that removes post-outcome academic summaries, with printed output listing the dropped columns and the 2,210 stay and 1,013 churn class counts."></button><figcaption>Post-outcome summaries removed; the output lists every dropped column. Click to enlarge.</figcaption></figure>
+          <figure class="slot cs-figure" style="margin:0"><button class="slot-shot" type="button"><img src="../assets/img/work/churn-code-killswitch.png" width="874" height="460" loading="lazy" decoding="async" alt="Python code that drops any column whose name suggests a label, status or future information, plus same-term alerts, with printed output."></button><figcaption>Name-based kill-switch for labels, statuses and same-term alerts. Click to enlarge.</figcaption></figure>
+          <figure class="slot cs-figure" style="margin:0"><button class="slot-shot" type="button"><img src="../assets/img/work/churn-code-sweeper.png" width="917" height="741" loading="lazy" decoding="async" alt="Python code that drops any single feature predicting the target almost perfectly, by ROC-AUC or category purity; output shows none were found."></button><figcaption>Sweep for any single feature that predicts churn almost perfectly. None found. Click to enlarge.</figcaption></figure>
+        </div>
       </section>
 
       <section class="cs-section" id="approach" data-reveal>
@@ -147,6 +154,7 @@
           <li><b>Delivery:</b> a Power BI dashboard that filters predicted risk by term, program and risk category.</li>
           <li><b>Validation with users:</b> user acceptance testing with two pilot users from Student Affairs and Student Financial Services.</li>
         </ul>
+        <figure class="slot cs-figure" style="max-width:876px"><button class="slot-shot" type="button"><img src="../assets/img/work/churn-code-groupkfold.png" width="876" height="610" loading="lazy" decoding="async" alt="Python cross-validation loop using GroupKFold grouped by Student_ID, with printed mean accuracy, precision, recall, F1 and ROC-AUC for Logistic Regression, Random Forest and HistGradientBoosting."></button><figcaption>5-fold cross-validation grouped by Student_ID, with mean scores for all three models. Click to enlarge.</figcaption></figure>
       </section>
 
       <section class="cs-section" id="dashboard" data-reveal>
